@@ -3,13 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using Geom_Util.Interfaces;
+
 namespace Geom_Util
 {
-    public interface IBounded
-    {
-        ImBounds GetBounds();
-    }
-
     public interface IReadOnlyRTree<T> : IEnumerable<T>
     {
         ImBounds GetBounds();
@@ -22,7 +19,7 @@ namespace Geom_Util
         const int MinChildren = 4;
         const int MaxChildren = MinChildren * 2 - 1;
 
-        public class Node
+        class Node
         {
             public Node Parent { get; private set; }
             public List<Node> Children = null;
