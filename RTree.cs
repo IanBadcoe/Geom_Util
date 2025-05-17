@@ -101,14 +101,14 @@ namespace Geom_Util
                 }
             }
 
-            private void RefreshBound()
+            void RefreshBound()
             {
                 Bounds = RecalculateBound();
 
                 IsDirty = false;
             }
 
-            private ImBounds RecalculateBound(bool refreshing_children = true)
+            ImBounds RecalculateBound(bool refreshing_children = true)
             {
                 if (Item != null)
                 {
@@ -297,12 +297,12 @@ namespace Geom_Util
             return true;
         }
 
-        private IEnumerable<Node> EnumerateNodes(bool include_empty, bool include_internal, bool include_leaves)
+        IEnumerable<Node> EnumerateNodes(bool include_empty, bool include_internal, bool include_leaves)
         {
             return EnumerateNodes(Root, include_empty, include_internal, include_leaves);
         }
 
-        private IEnumerable<Node> EnumerateNodes(Node node, bool include_empty, bool include_internal, bool include_leaves)
+        IEnumerable<Node> EnumerateNodes(Node node, bool include_empty, bool include_internal, bool include_leaves)
         {
             // empty node is only ever the root, if we hit it and we did not want to return it
             // we are done...
@@ -331,7 +331,7 @@ namespace Geom_Util
             }
         }
 
-        private IEnumerable<Node> Search(Node node, ImBounds b)
+        IEnumerable<Node> Search(Node node, ImBounds b)
         {
             if (node.IsEmpty)
                 yield break;
@@ -355,7 +355,7 @@ namespace Geom_Util
             }
         }
 
-        private Node InsertNode(Node search_node, Node insert_node, int level)
+        Node InsertNode(Node search_node, Node insert_node, int level)
         {
             Node insert_here_node;
 
@@ -387,7 +387,7 @@ namespace Geom_Util
             return SplitNode(search_node, insert_here_node);
         }
 
-        private Node SplitNode(Node node, Node new_node)
+        Node SplitNode(Node node, Node new_node)
         {
             var all_nodes = node.Children.Append(new_node).ToList();
 
@@ -465,7 +465,7 @@ namespace Geom_Util
             return new Node(set2);
         }
 
-        private Tuple<Node, Node> FindExtremes(List<Node> nodes)
+        Tuple<Node, Node> FindExtremes(List<Node> nodes)
         {
             // max_x will be the highest, _minimum_ x on a node's bounds
             // and min_x will be the lowest _maximum_ x
@@ -555,7 +555,7 @@ namespace Geom_Util
             return ret;
         }
 
-        private Node ChooseNode(List<Node> children, Node insert_leaf_node)
+        Node ChooseNode(List<Node> children, Node insert_leaf_node)
         {
             Node chosen = children[0];
             float chosen_growth_ratio = 1;
@@ -601,7 +601,7 @@ namespace Geom_Util
             return chosen;
         }
 
-        private void RemoveFrom(Node remove_from, Node node)
+        void RemoveFrom(Node remove_from, Node node)
         {
             Godot_Util.Util.Assert(remove_from != null, "Removing from what-now?");
             Godot_Util.Util.Assert(remove_from.Children != null, "Removing from node with no Children list...");
