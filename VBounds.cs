@@ -70,6 +70,11 @@ namespace Geom_Util
                 && pnt.Z >= Min.Z && pnt.Z <= Max.Z;
         }
 
+        public bool Contains(ImBounds bounds)
+        {
+            return Contains(bounds.Max) && Contains(bounds.Min);
+        }
+
         public ImBounds ExpandedBy(float bound_extension)
         {
             var exp_vec = new ImVec3(bound_extension, bound_extension, bound_extension);

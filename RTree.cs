@@ -4,13 +4,25 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Geom_Util.Interfaces;
+using Godot_Util;
 
 namespace Geom_Util
 {
-    public interface IReadOnlyRTree<T> : IEnumerable<T>
+    public interface IReadOnlyRTree
+    {
+        public enum SearchMode
+        {
+            ContainedWithin,    //< find leaves whose bounds are contained within the search-bounds (identity counts)
+            Contains,           //< find leaves whose bounds contain the search-bounds
+            Overlaps,           //< find leaves whose bounds overlap the search-bounds
+            ExactMatch          //< find leaves with identical bounds to the search-bounds
+        }
+    }
+
+    public interface IReadOnlyRTree<T> : IReadOnlyRTree, IEnumerable<T>
     {
         ImBounds GetBounds();
-        IEnumerable<T> Search(ImBounds b);
+        IEnumerable<T> Search(ImBounds search_bounds, SearchMode mode);
     }
 
     public class RTree<T> : IReadOnlyRTree<T>
@@ -180,9 +192,9 @@ namespace Geom_Util
             }
         }
 
-        public IEnumerable<T> Search(ImBounds b)
+        public IEnumerable<T> Search(ImBounds b, IReadOnlyRTree.SearchMode mode)
         {
-            foreach (Node n in Search(Root, b))
+            foreach (Node n in Search(Root, b, mode))
             {
                 yield return n.Item;
             }
@@ -218,7 +230,7 @@ namespace Geom_Util
         public void Remove(T t)
         {
             Node t_n = null;
-            foreach (Node n in Search(Root, t.GetBounds()))
+            foreach (Node n in Search(Root, t.GetBounds(), IReadOnlyRTree.SearchMode.ExactMatch))
             {
                 if (ReferenceEquals(n.Item, t))
                 {
@@ -331,12 +343,49 @@ namespace Geom_Util
             }
         }
 
-        IEnumerable<Node> Search(Node node, ImBounds b)
+        private static bool SearchCondition(ImBounds search_bounds, Node node, IReadOnlyRTree.SearchMode mode)
+        {
+            if (node.IsLeaf)
+            {
+                switch(mode)
+                {
+                    case IReadOnlyRTree.SearchMode.ContainedWithin:
+                        return search_bounds.Contains(node.GetBounds());
+                    case IReadOnlyRTree.SearchMode.Contains:
+                        return node.GetBounds().Contains(search_bounds);
+                    case IReadOnlyRTree.SearchMode.Overlaps:
+                        return search_bounds.Overlaps(node.GetBounds());
+                    case IReadOnlyRTree.SearchMode.ExactMatch:
+                        return search_bounds.Equals(node.GetBounds());
+                }
+            }
+
+            // intrernal nodes
+            switch(mode)
+            {
+                case IReadOnlyRTree.SearchMode.ContainedWithin:
+                case IReadOnlyRTree.SearchMode.Overlaps:
+                    // to find leaves which are either contained withing the bounds, or overlap the search-bounds, we
+                    // need to look inside nodes which overlap the search-bounds
+                    return search_bounds.Overlaps(node.GetBounds());
+                case IReadOnlyRTree.SearchMode.Contains:
+                case IReadOnlyRTree.SearchMode.ExactMatch:
+                    // to find leaves which either contain the search-bounds, or are identical to them, we need to look inside
+                    // notes which contain the search-bounds
+                    return node.GetBounds().Contains(search_bounds);
+            }
+
+            Util.Assert(false);
+
+            return false;
+        }
+
+        IEnumerable<Node> Search(Node node, ImBounds b, IReadOnlyRTree.SearchMode mode)
         {
             if (node.IsEmpty)
                 yield break;
 
-            if (node.GetBounds().Overlaps(b))
+            if (SearchCondition(b, node, mode))
             {
                 if (node.IsLeaf)
                 {
@@ -346,7 +395,7 @@ namespace Geom_Util
                 {
                     foreach (var child in node.Children)
                     {
-                        foreach (Node n in Search(child, b))
+                        foreach (Node n in Search(child, b, mode))
                         {
                             yield return n;
                         }
