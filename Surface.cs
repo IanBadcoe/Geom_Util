@@ -11,6 +11,8 @@ using Geom_Util.Interfaces;
 
 namespace Geom_Util;
 
+using Immutable;
+
 using EIdx = Idx<Edge>;
 using VIdx = Idx<Vert>;
 using FIdx = Idx<Face>;

@@ -23,7 +23,7 @@ public static class VertUtil
             return;
         }
 
-        List<Edge> open_edges = vert.Edges.ToList();
+        List<Edge> open_edges = [.. vert.Edges];
         Vert new_vert = vert;       // at first this is _not_ new, but if we need to inject another vert it will be...
 
         while(open_edges.Count > 0)

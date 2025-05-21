@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Geom_Util.Interfaces;
+
+using Geom_Util.Immutable;
+
 using Godot_Util;
 
 namespace Geom_Util

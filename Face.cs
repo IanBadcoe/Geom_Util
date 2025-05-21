@@ -109,8 +109,8 @@ public class Face : ISpatialValue<FIdx>, IHasGeneratiorIdentities
 
     }
 
-    public ImBounds GetBounds()
+    public Immutable.ImBounds GetBounds()
     {
-        return Verts.Aggregate(new ImBounds(), (x, y) => x.UnionedWith(y.GetBounds()));
+        return Verts.Aggregate(new Immutable.ImBounds(), (x, y) => x.UnionedWith(y.GetBounds()));
     }
 }

@@ -8,6 +8,8 @@ using Geom_Util.Interfaces;
 
 using Godot_Util;
 
+using Geom_Util.Immutable;
+
 using System;
 
 namespace Geom_Util

@@ -7,6 +7,8 @@ using Godot_Util;
 
 namespace Geom_Util;
 
+using Immutable;
+
 using VIdx = Idx<Vert>;
 using EIdx = Idx<Edge>;
 using FIdx = Idx<Face>;

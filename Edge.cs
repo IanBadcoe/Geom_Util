@@ -168,7 +168,8 @@ namespace Geom_Util
             Tag = original_edge.Tag;
         }
 
-        public ImBounds GetBounds()
+        public
+        Immutable.ImBounds GetBounds()
         {
             return Start.GetBounds().UnionedWith(End.GetBounds());
         }
