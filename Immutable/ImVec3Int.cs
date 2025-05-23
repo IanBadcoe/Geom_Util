@@ -143,7 +143,7 @@ public class ImVec3Int : IEquatable<ImVec3Int>
 
     public override int GetHashCode()
     {
-        return X.GetHashCode() + Y.GetHashCode() * 17 + Z.GetHashCode() * 19;
+        return HashCode.Combine(X.GetHashCode(), Y.GetHashCode(), Z.GetHashCode());
     }
 
     internal ImVec3 ToImVec3()

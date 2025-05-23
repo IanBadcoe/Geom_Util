@@ -169,7 +169,7 @@ public class ImVec3 : IEquatable<ImVec3>, IBounded
 
     public override int GetHashCode()
     {
-        return X.GetHashCode() + Y.GetHashCode() * 3 + Z.GetHashCode() * 7;
+        return HashCode.Combine(X.GetHashCode(), Y.GetHashCode(), Z.GetHashCode());
     }
 
     #region IBounded

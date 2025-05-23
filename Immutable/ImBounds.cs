@@ -140,6 +140,6 @@ public class ImBounds : IEquatable<ImBounds>
 
     public override int GetHashCode()
     {
-        return Min.GetHashCode() + Max.GetHashCode() * 3;
+        return HashCode.Combine(Min.GetHashCode(), Max.GetHashCode());
     }
 }
