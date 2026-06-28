@@ -18,8 +18,8 @@ namespace Geom_Util.Immutable;
 [DebuggerDisplay("({Min.X}, {Min.Y}, {Min.Z}) -> ({Max.X}, {Max.Y}, {Max.Z})")]
 public class ImBounds : IEquatable<ImBounds>
 {
-    public ImVec3 Min { get; private set; }
-    public ImVec3 Max { get; private set; }
+    public ImVec3 Min { get; init; }
+    public ImVec3 Max { get; init; }
 
     public ImBounds()
     {

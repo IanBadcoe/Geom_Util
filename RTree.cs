@@ -203,6 +203,11 @@ namespace Geom_Util
             }
         }
 
+        public IEnumerable<T> Search(T t, IReadOnlyRTree.SearchMode mode)
+        {
+            return Search(t.GetBounds(), mode);
+        }
+
         public void Insert(T item)
         {
             if (Root.IsEmpty)
@@ -346,7 +351,7 @@ namespace Geom_Util
             }
         }
 
-        private static bool SearchCondition(ImBounds search_bounds, Node node, IReadOnlyRTree.SearchMode mode)
+        static bool SearchCondition(ImBounds search_bounds, Node node, IReadOnlyRTree.SearchMode mode)
         {
             if (node.IsLeaf)
             {
