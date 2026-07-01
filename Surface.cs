@@ -7,7 +7,7 @@ using Godot;
 
 using Godot_Util;
 
-using Geom_Util.Interfaces;
+using Geom_Util.Immutable.Interfaces;
 
 namespace Geom_Util;
 

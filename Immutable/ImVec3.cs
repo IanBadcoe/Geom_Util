@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-using Geom_Util.Interfaces;
+using Geom_Util.Immutable.Interfaces;
 
 using Godot;
 

@@ -1,5 +1,5 @@
 using Geom_Util.Immutable;
-using Geom_Util.Interfaces;
+using Geom_Util.Immutable.Interfaces;
 using Godot.Bridge;
 
 public class ImCuboid : IBounded
