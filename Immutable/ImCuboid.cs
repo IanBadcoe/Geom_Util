@@ -2,7 +2,7 @@ using Geom_Util.Immutable;
 using Geom_Util.Interfaces;
 using Godot.Bridge;
 
-class ImCuboid : IBounded
+public class ImCuboid : IBounded
 {
     public ImVec3 Min { get; init; }
     public ImVec3 Max { get; init; }
