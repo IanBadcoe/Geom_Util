@@ -208,6 +208,11 @@ namespace Geom_Util
             return Search(t.GetBounds(), mode);
         }
 
+        public IEnumerable<T> Search(ImVec3 point)
+        {
+            return Search(new ImBounds(point, point), IReadOnlyRTree.SearchMode.Contains);
+        }
+
         public void Insert(T item)
         {
             if (Root.IsEmpty)
