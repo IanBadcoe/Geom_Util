@@ -167,7 +167,7 @@ namespace Geom_Util
 
         public RTree()
         {
-            // nothing, initialisers give us an empty tree
+            // nothing, initializers give us an empty tree
         }
 
         #region IEnumerable
@@ -373,7 +373,7 @@ namespace Geom_Util
                 }
             }
 
-            // intrernal nodes
+            // internal nodes
             switch(mode)
             {
                 case IReadOnlyRTree.SearchMode.ContainedWithin:
