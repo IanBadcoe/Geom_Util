@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Geom_Util;
 using Godot;
 
 using Godot_Util;
@@ -11,7 +10,6 @@ using System.Diagnostics;
 namespace Geom_Util;
 
 using VIdx = Idx<Vert>;
-using EIdx = Idx<Edge>;
 using FIdx = Idx<Face>;
 
 [DebuggerDisplay("{Key} Edges:{Edges.Length} Verts:{Verts.Length}")]

@@ -3,13 +3,8 @@ using System.Linq;
 using System;
 
 using Godot_Util;
-using Godot;
 
 namespace Geom_Util;
-
-using VIdx = Idx<Vert>;
-using EIdx = Idx<Edge>;
-using FIdx = Idx<Face>;
 
 public static class VertUtil
 {

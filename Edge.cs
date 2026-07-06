@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -8,8 +7,6 @@ using Godot_Util;
 
 namespace Geom_Util
 {
-    using FIdx = Idx<Face>;
-    using VIdx = Idx<Vert>;
     using EIdx = Idx<Edge>;
 
     [DebuggerDisplay("{Key.Value} : {Start.Key}->{End.Key} Forwards:{Forwards.Key} Backwards:{Backwards.Key} SetSharp: {IsSetSharp}")]
