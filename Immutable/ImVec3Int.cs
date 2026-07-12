@@ -93,9 +93,9 @@ public class ImVec3Int : IEquatable<ImVec3Int>
 
     // special case, multiply similar elements and store in the same element of the result
     // could call this "operator *" but feels like that's asking for misunderstandings
-    public static ImVec3Int MultiplyElements(ImVec3Int lhs, ImVec3Int rhs)
+    public ImVec3Int MultiplyByElements(ImVec3Int rhs)
     {
-        return new ImVec3Int(lhs.X * rhs.X, lhs.Y * rhs.Y, lhs.Z * rhs.Z);
+        return new ImVec3Int(X * rhs.X, Y * rhs.Y, Z * rhs.Z);
     }
 
     public float Size2()
