@@ -81,6 +81,12 @@ public class ImVec3Int : IEquatable<ImVec3Int>
         return new ImVec3Int(lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z);
     }
 
+    // to save having to build throwaway ImVec3Int's when just offsetting
+    public ImVec3Int Plus(int dx, int dy, int dz)
+    {
+        return new(X + dx, Y + dy, Z + dz);
+    }
+
     public static ImVec3Int operator -(ImVec3Int lhs, ImVec3Int rhs)
     {
         return new ImVec3Int(lhs.X - rhs.X, lhs.Y - rhs.Y, lhs.Z - rhs.Z);

@@ -57,6 +57,12 @@ public class ImVec3 : IEquatable<ImVec3>, IBounded
         return new ImVec3(lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z);
     }
 
+    // to save having to build throwaway ImVec3's when just offsetting
+    public ImVec3 Plus(float dx, float dy, float dz)
+    {
+        return new(X + dx, Y + dy, Z + dz);
+    }
+
     public static ImVec3 operator -(ImVec3 lhs, ImVec3 rhs)
     {
         return new ImVec3(lhs.X - rhs.X, lhs.Y - rhs.Y, lhs.Z - rhs.Z);
