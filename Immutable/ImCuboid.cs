@@ -1,19 +1,20 @@
+using System.Dynamic;
 using Geom_Util.Immutable;
 using Geom_Util.Immutable.Interfaces;
 
 public class ImCuboid : IBounded
 {
-    public ImVec3 Min { get; init; }
-    public ImVec3 Max { get; init; }
+    public ImVec3 Min => Bounds.Min;
+    public ImVec3 Max => Bounds.Max;
+    public ImBounds Bounds{ get; private set; }
 
-    public ImCuboid(ImVec3 min, ImVec3 max)
+    public ImCuboid(ImBounds bounds)
     {
-        Min = min;
-        Max = max;
+        Bounds = bounds;
     }
 
     public ImBounds GetBounds()
     {
-        return new ImBounds(Min, Max);
+        return Bounds;
     }
 }
