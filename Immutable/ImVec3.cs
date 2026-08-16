@@ -90,6 +90,11 @@ public class ImVec3 : IEquatable<ImVec3>, IBounded
         return new ImVec3(lhs.X / rhs, lhs.Y / rhs, lhs.Z / rhs);
     }
 
+    public ImVec3 DivideByElements(ImVec3 rhs)
+    {
+        return new ImVec3(X / rhs.X, Y / rhs.Y, Z / rhs.Z);
+    }
+
     public bool IsBefore(ImVec3 other)
     {
         if (X < other.X)
@@ -190,5 +195,6 @@ public class ImVec3 : IEquatable<ImVec3>, IBounded
     {
         return new ImBounds(this, this);
     }
+
     #endregion
 }
