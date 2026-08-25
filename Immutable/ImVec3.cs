@@ -196,5 +196,12 @@ public class ImVec3 : IEquatable<ImVec3>, IBounded
         return new ImBounds(this, this);
     }
 
+    // useful for unit-vectors representing directions which might be parallel or antiparallel
+    // (a true "IsParallelOrAntiparallel" would need to normalise, or use dot products)
+    public bool IsEqualOrOpposite(ImVec3 other)
+    {
+        return this.Equals(other) || this.Equals(-other);
+    }
+
     #endregion
 }
