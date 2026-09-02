@@ -138,7 +138,7 @@ public class ImVec3Int : IEquatable<ImVec3Int>
             return false;
         }
 
-        // the two points are the same, so "IsBefore" is false, but we really do not expect to get asked this...
+        // the two points are the same, so "IsBefore" is false
         return false;
     }
 
@@ -159,8 +159,10 @@ public class ImVec3Int : IEquatable<ImVec3Int>
         return HashCode.Combine(X.GetHashCode(), Y.GetHashCode(), Z.GetHashCode());
     }
 
-    internal ImVec3 ToImVec3()
+    public ImVec3 ToImVec3()
     {
         return new ImVec3(X, Y, Z);
     }
+
+    public override string ToString() => $"({X},{Y},{Z})";
 }

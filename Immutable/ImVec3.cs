@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Geom_Util.Immutable.Interfaces;
 
 using Godot;
+using Godot_Util;
 
 namespace Geom_Util.Immutable;
 
@@ -128,9 +129,17 @@ public class ImVec3 : IEquatable<ImVec3>, IBounded
         return false;
     }
 
-    public ImVec3Int ToImVec3Int()
+    public enum RoundMode
     {
-        return new ImVec3Int(Mathf.FloorToInt(X), Mathf.FloorToInt(Y), Mathf.FloorToInt(Z));
+        Floor,
+        Nearest,
+    }
+
+    public ImVec3Int ToImVec3Int(RoundMode round_mode = RoundMode.Floor)
+    {
+        float offset = round_mode == RoundMode.Floor ? 0.5f : 0;
+
+        return new ImVec3Int(Mathf.FloorToInt(X + offset), Mathf.FloorToInt(Y + offset), Mathf.FloorToInt(Z + offset));
     }
 
     public ImVec3 Max(ImVec3 other)
@@ -202,6 +211,19 @@ public class ImVec3 : IEquatable<ImVec3>, IBounded
     {
         return this.Equals(other) || this.Equals(-other);
     }
+
+    internal ImVec3 MovedBy(Orthogonal.Dir dir, float dist)
+    {
+        // we only understand moves xyz, here
+        Util.Assert((dir & Orthogonal.Dir.AllMaxMoves) == dir);
+
+        float dx = (dir & Orthogonal.Dir.PlusX) != 0 ? dist : 0;
+        float dy = (dir & Orthogonal.Dir.PlusY) != 0 ? dist : 0;
+        float dz = (dir & Orthogonal.Dir.PlusZ) != 0 ? dist : 0;
+
+        return this.Plus(dx, dy, dz);
+    }
+
 
     #endregion
 }

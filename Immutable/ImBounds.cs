@@ -41,10 +41,10 @@ public class ImBounds : IEquatable<ImBounds>
         Max = max;
     }
 
-    public ImBounds(ImVec3 v)
+    public ImBounds(ImVec3 point)
     {
         // make the zero-sized bounds for a point...
-        Min = Max = v;
+        Min = Max = point;
     }
 
     public ImBounds Encapsulating(ImVec3 v)
@@ -77,9 +77,27 @@ public class ImBounds : IEquatable<ImBounds>
 
     public ImBounds ExpandedBy(float bound_extension)
     {
-        var exp_vec = new ImVec3(bound_extension, bound_extension, bound_extension);
+        return ExpandedBy(bound_extension, bound_extension, bound_extension);
+    }
 
+    public ImBounds ExpandedBy(float extend_x, float extend_y, float extend_z)
+    {
+        return ExpandedBy(new ImVec3(extend_x, extend_y, extend_z));
+    }
+
+    public ImBounds ExpandedBy(ImVec3 exp_vec)
+    {
         return new ImBounds(Min - exp_vec, Max + exp_vec);
+    }
+
+    // move a selected subset of faces out by an amount
+    // (will also move in with -ve amount)
+    public ImBounds ExpandedBy(Orthogonal.Dir dir, float dist)
+    {
+        var max_moves = dir & Orthogonal.Dir.AllMaxMoves;
+        var min_moves = Orthogonal.Reverse(dir & Orthogonal.Dir.AllMinMoves);
+
+        return new(Min.MovedBy(min_moves, -dist), Max.MovedBy(max_moves, dist));
     }
 
     public IEnumerable<ImVec3> Corners
